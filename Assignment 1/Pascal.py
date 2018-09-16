@@ -6,12 +6,12 @@
 def printTriangle(rows):
     '''
         Print new line for each row, then 
-        print each value and a space
+        print each value and a space for n rows
     '''
-    for row in range(0, rows):
+    for n in range(0, rows):
         print()
-        for rowElement in range(0, row + 1):
-            print(coefficient(row, rowElement), end = "")
+        for rowElement in range(0, n + 1):
+            print(coefficient(n, rowElement), end = "")
             print(" ", end = "")
 
 def coefficient(row, elem):
