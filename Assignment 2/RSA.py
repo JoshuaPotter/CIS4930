@@ -14,18 +14,27 @@ class RSA(object):
    # Get messages from user
    def inputFunc(self):
       # Get the number of entries
-      numberOfMessages = input("Enter the number of messages: ")
-      numberOfMessages = int(numberOfMessages)
+      numberOfMessages = int(input("Enter the number of messages: "))
 
       # Get the entries and append to object list
       print("Enter the messages: ")
       while numberOfMessages > 0:
-         self.list.append(input())
+         self.list.append(int(input()))
          numberOfMessages = numberOfMessages - 1
 
    # Print message along with number parameter
-   def printFunc(self, number):
-      print("The message is", number)
+   def printFunc(self, number):         
+      print("message is", number)
+
+   def encryptDecorator(self, message):
+      def wrapper():
+         print("The encrypted ", message())
+      return wrapper
+
+   def decryptDecorator(self, message):
+      def wrapper():
+         print("The decrypted ", message())
+      return wrapper
 
    # Generate the next prime number after min parameter
    def primeGen(self, min):
@@ -55,8 +64,8 @@ class RSA(object):
       self.N = p * q
       phi = (p - 1) * (q - 1)
 
-      # calculate e, 1 < e < phi
-      # if GCD of e and phi != 1, find another number until satisfied
+      # calculate e for 1 < e < phi
+      # look for numbers that satisfy GCD(e, phi) == 1
       self.e = random.randint(1, phi)
       while self.gcd(self.e, phi) != 1:
          self.e = random.randint(1, phi)
@@ -68,13 +77,23 @@ class RSA(object):
       print("e is", self.e)
 
    def encrypt(self, messageToEncrypt):
-      return (messageToEncrypt ** self.e) % self.N
+      return pow(messageToEncrypt, self.e, self.N)
 
    def decrypt(self, messageToDecrypt):
-      print()
+      return pow(messageToDecrypt, self.d, self.N)
 
    def messages(self):
-      print()
+      self.inputFunc()
+      self.keyGen(int(input("Enter the minimum value for the prime numbers: ")))
+      encrypted = []
+      for i in self.list:
+         x = self.encrypt(i)
+         encrypted.append(x)
+         print("Encrypted: ", x)
+
+      for i in encrypted:
+         x = self.decrypt(i)
+         print("Decrypted: ", x)
 
    '''
    Helper Functions
@@ -92,6 +111,8 @@ class RSA(object):
          return self.gcd(second, (first % second))
 
    # Multiplicative inverse
+   # Calculated using euclidian algorithm
+   # Source: https://www.geeksforgeeks.org/multiplicative-inverse-under-modulo-m/
    def inverse(self, e, phi):
       phiTemp = phi
       p = 0
@@ -119,5 +140,4 @@ class RSA(object):
 # run program
 if __name__ == "__main__":
    algorithm = RSA()
-   algorithm.inputFunc()
-   algorithm.keyGen(int(input("Enter the minimum value for the prime numbers: ")))
+   algorithm.messages()
