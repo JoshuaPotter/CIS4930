@@ -58,18 +58,22 @@ class DrawImage(QtWidgets.QWidget):
       self.setFixedSize(300,300)
 
    def up(self):
+      # up button event
       self.position = "Up"
       self.update()
 
    def down(self):
+      # down button event
       self.position = "Down"
       self.update()
       
    def left(self):
+      # left button event
       self.position = "Left"
       self.update()
       
    def right(self):
+      # right button event
       self.position = "Right"
       self.update()
    
@@ -84,15 +88,15 @@ class DrawImage(QtWidgets.QWidget):
       qp.setPen(pen)
       qp.drawEllipse(75,75,150,150)
 
-      # head
+      # head position
       if(self.position == "Up"):
-         qp.drawChord(100, 35, 100, 100, 10*16, 160*16)
+         qp.drawChord(100, 34, 100, 100, 10*16, 160*16)
       elif(self.position == "Left"):
-         qp.drawChord(35, 100, 100, 100, 100*16, 160*16)
+         qp.drawChord(34, 100, 100, 100, 100*16, 160*16)
       elif(self.position == "Right"):
-         qp.drawChord(100, 35, 100, 100, 10*16, 160*16)
+         qp.drawChord(167, 100, 100, 100, 1000*16, 160*16)
       elif(self.position == "Down"):
-         qp.drawChord(100, 35, 100, 100, 10*16, 160*16)
+         qp.drawChord(100, 167, 100, 100, -10*16, -160*16)
 
       # inner circle
       pen.setColor(QtGui.QColor(255,140,0,255))
