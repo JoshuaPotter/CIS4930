@@ -26,6 +26,12 @@ class Droid(QtWidgets.QWidget):
       self.down = DownBtn(self)
       self.left = LeftBtn(self)
 
+      # setup event listeners for buttons
+      self.up.clicked.connect(self.image.up)
+      self.right.clicked.connect(self.image.right)
+      self.down.clicked.connect(self.image.down)
+      self.left.clicked.connect(self.image.left)
+
       # setup grid
       self.grid = QtWidgets.QGridLayout()
       self.setLayout(self.grid)
@@ -40,6 +46,7 @@ class Droid(QtWidgets.QWidget):
 class DrawImage(QtWidgets.QWidget):
    def __init__(self, parent):
       QtWidgets.QWidget.__init__(self, parent)
+      self.position = "Up"
       self.setup()
 
    def setup(self):
@@ -49,6 +56,22 @@ class DrawImage(QtWidgets.QWidget):
       self.setPalette(p)
       self.setAutoFillBackground(True)
       self.setFixedSize(300,300)
+
+   def up(self):
+      self.position = "Up"
+      self.update()
+
+   def down(self):
+      self.position = "Down"
+      self.update()
+      
+   def left(self):
+      self.position = "Left"
+      self.update()
+      
+   def right(self):
+      self.position = "Right"
+      self.update()
    
    def paintEvent(self, event):
       # create pen
