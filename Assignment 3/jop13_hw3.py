@@ -26,7 +26,7 @@ class Droid(QtWidgets.QWidget):
       self.down = DownBtn(self)
       self.left = LeftBtn(self)
 
-      # setup grid
+      # setup grid within central widget
       self.grid = QtWidgets.QGridLayout()
       self.setLayout(self.grid)
 
@@ -60,6 +60,9 @@ class DrawImage(QtWidgets.QWidget):
       pen.setColor(QtCore.Qt.black)
       qp.setPen(pen)
       qp.drawEllipse(75,75,150,150)
+
+      # head
+      qp.drawChord(100, 35, 100, 100, 10*16, 160*16)
 
       # inner circle
       pen.setColor(QtGui.QColor(255,140,0,255))
