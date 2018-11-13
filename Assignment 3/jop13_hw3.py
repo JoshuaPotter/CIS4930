@@ -84,6 +84,9 @@ class DrawImage(QtWidgets.QWidget):
       qp.setPen(pen)
       qp.drawEllipse(75,75,150,150)
 
+      # head
+      qp.drawChord(100, 35, 100, 100, 10*16, 160*16)
+
       # inner circle
       pen.setColor(QtGui.QColor(255,140,0,255))
       pen.setWidth(23)
