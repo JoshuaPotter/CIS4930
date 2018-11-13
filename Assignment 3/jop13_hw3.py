@@ -85,7 +85,14 @@ class DrawImage(QtWidgets.QWidget):
       qp.drawEllipse(75,75,150,150)
 
       # head
-      qp.drawChord(100, 35, 100, 100, 10*16, 160*16)
+      if(self.position == "Up"):
+         qp.drawChord(100, 35, 100, 100, 10*16, 160*16)
+      elif(self.position == "Left"):
+         qp.drawChord(35, 100, 100, 100, 100*16, 160*16)
+      elif(self.position == "Right"):
+         qp.drawChord(100, 35, 100, 100, 10*16, 160*16)
+      elif(self.position == "Down"):
+         qp.drawChord(100, 35, 100, 100, 10*16, 160*16)
 
       # inner circle
       pen.setColor(QtGui.QColor(255,140,0,255))
