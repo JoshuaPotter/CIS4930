@@ -1,4 +1,3 @@
-
 import sys
 from PyQt5 import QtWidgets, QtCore, QtGui
 
@@ -8,11 +7,10 @@ class Homework3(QtWidgets.QMainWindow):
       self.setup()
 
    def setup(self):
+      # create window
       self.setWindowTitle('Homework 3')
-      
-      self.draw = Droid(self)
-      self.setCentralWidget(self.draw)
-
+      self.droid = Droid(self)
+      self.setCentralWidget(self.droid)
       self.show()
 
 class Droid(QtWidgets.QWidget):
@@ -21,7 +19,8 @@ class Droid(QtWidgets.QWidget):
       self.setup()
    
    def setup(self):
-      self.droid = DrawImage(self)
+      # setup buttons
+      self.image = DrawImage(self)
       self.up = UpBtn(self)
       self.right = RightBtn(self)
       self.down = DownBtn(self)
@@ -32,7 +31,7 @@ class Droid(QtWidgets.QWidget):
       self.setLayout(self.grid)
 
       # setup grid widgets
-      self.grid.addWidget(self.droid, 2, 2, 1, 1)
+      self.grid.addWidget(self.image, 2, 2, 1, 1)
       self.grid.addWidget(self.up, 1, 1, 1, 3)
       self.grid.addWidget(self.right, 2, 3, 1, 1)
       self.grid.addWidget(self.down, 3, 1, 1, 3)
@@ -44,11 +43,11 @@ class DrawImage(QtWidgets.QWidget):
       self.setup()
 
    def setup(self):
-      self.setFixedSize(300,300)
       p = self.palette()
       p.setColor(self.backgroundRole(), QtGui.QColor(255, 255, 255, 255)) 
       self.setPalette(p)
       self.setAutoFillBackground(True)
+      self.setFixedSize(300,300)
    
    def paintEvent(self, event):
       qp = QtGui.QPainter()
