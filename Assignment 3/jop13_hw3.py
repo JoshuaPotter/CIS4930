@@ -77,6 +77,7 @@ class UpBtn(QtWidgets.QPushButton):
 class RightBtn(QtWidgets.QPushButton):
    def __init__(self, parent):
       QtWidgets.QPushButton.__init__(self,parent)
+      self.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
       self.setText("Right")
 
 class DownBtn(QtWidgets.QPushButton):
@@ -87,6 +88,7 @@ class DownBtn(QtWidgets.QPushButton):
 class LeftBtn(QtWidgets.QPushButton):
    def __init__(self, parent):
       QtWidgets.QPushButton.__init__(self,parent)
+      self.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
       self.setText("Left")
 
 if __name__ == "__main__":
