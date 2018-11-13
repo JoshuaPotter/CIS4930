@@ -43,6 +43,7 @@ class DrawImage(QtWidgets.QWidget):
       self.setup()
 
    def setup(self):
+      # setup canvas
       p = self.palette()
       p.setColor(self.backgroundRole(), QtGui.QColor(255, 255, 255, 255)) 
       self.setPalette(p)
@@ -50,6 +51,7 @@ class DrawImage(QtWidgets.QWidget):
       self.setFixedSize(300,300)
    
    def paintEvent(self, event):
+      # create pen
       qp = QtGui.QPainter()
       qp.begin(self)
       pen = qp.pen()
