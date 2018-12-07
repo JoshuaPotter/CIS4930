@@ -4,60 +4,52 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def colorPicker(temperature,currentState):
-   integer = int(currentState)
-   colors = ['darkred','red','orange','yellow','lawngreen','aqua','blue','darkblue']
-   index = 0
-   
-   if currentState < temperature//8:
-      index = 7
-   elif currentState < temperature//7:
-      index = 6
-   elif currentState < temperature//6:
-      index = 5
-   elif currentState < temperature//5:
-      index = 4
-   elif currentState < temperature//4:
-      index = 3
-   elif currentState < temperature//3:
-      index = 2
-   elif currentState < temperature//2:
-      index = 1
-   else:
-      index = 0
-
-   return colors[index]
-
 if __name__ == "__main__":
    temperature = float(input("Enter starting temperature: "))
    previousState = np.zeros([int(temperature)+2, int(temperature)+2])
    currentState = np.zeros([int(temperature)+2, int(temperature)+2])
    
    for i in range(0,int(temperature)+2):
-      previousState[i,0] = temperature
       currentState[i,0] = temperature
-
-   for i in range(1,int(temperature)+1):       # columns
-      for j in range(1,int(temperature)+1):     # rows
-         # print(previousState[i-1, j])
-         # print(previousState[i+1, j])
-         # print(previousState[i, j-1])
-         # print(previousState[i, j+1])
-         #print(round(.25 * (previousState[i-1, j] + previousState[i+1, j] + previousState[i, j-1] + previousState[i, j+1]), 2))
-         currentState[i,j] = round(.25 * (previousState[i-1, j] + previousState[i+1, j] + previousState[i, j-1] + previousState[i, j+1]), 2)
-         previousState[i,j] = currentState[i,j]
 
    #print(currentState)
 
+   n = 0
+   while n < 3000 and not np.array_equal(previousState, currentState):
+      previousState = np.copy(currentState)
+      for i in range(int(temperature)):       # columns
+         i += 1
+         for j in range(1,int(temperature)):     # rows
+            currentState[i,j] = .25 * (previousState[i-1, j] + previousState[i+1, j] + previousState[i, j-1] + previousState[i, j+1])
+            j += 1
+      n += 1
+   print(currentState)
    #axes.axis([0,int(temperature),0,int(temperature)])
-   # for i in reversed(range(1,int(temperature)+1)):        # columns
-   #    for j in reversed(range(1,int(temperature)+1)):     # rows
-   #       plt.scatter(j,i,marker='o',color=colorPicker(temperature,currentState[i,j]))
-   
+
+   # section = temperature // 8
+   # for i in range(1,int(temperature)):        # columns
+   #    for j in range(1,int(temperature)):     # rows
+   #       if currentState[i,j] < section:
+   #          plt.scatter(j,i,c="darkblue")
+   #       elif currentState[i,j]*2 <= section:
+   #          plt.scatter(j,i,c="blue")
+   #       elif currentState[i,j]*3 <= section:
+   #          plt.scatter(j,i,c="aqua")
+   #       elif currentState[i,j]*4 <= section:
+   #          plt.scatter(j,i,c="lawngreen")
+   #       elif currentState[i,j]*5 <= section:
+   #          plt.scatter(j,i,c="yellow")
+   #       elif currentState[i,j]*6 <= section:
+   #          plt.scatter(j,i,c="orange")
+   #       elif currentState[i,j]*7 <= section:
+   #          plt.scatter(j,i,c="red")
+   #       else:
+   #          plt.scatter(j,i,c="darkred")
+
+   plt.title("Heat Diffusion")
+   plt.show()
+
    figure, axes = plt.subplots()
    data = axes.imshow(currentState, cmap=plt.get_cmap('hot'), interpolation='nearest', vmin=0, vmax=temperature)
    figure.colorbar(data)
    plt.show()
-
-   # plt.title("Heat Diffusion")
-   # plt.show()
