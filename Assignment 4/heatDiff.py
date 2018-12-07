@@ -50,9 +50,14 @@ if __name__ == "__main__":
    #print(currentState)
 
    #axes.axis([0,int(temperature),0,int(temperature)])
-   for i in range(1,int(temperature)+1):        # columns
-      for j in range(1,int(temperature)+1):     # rows
-         plt.scatter(i,j,marker='o',color=colorPicker(temperature,currentState[i,j]))
-
-   plt.title("Heat Diffusion")
+   # for i in reversed(range(1,int(temperature)+1)):        # columns
+   #    for j in reversed(range(1,int(temperature)+1)):     # rows
+   #       plt.scatter(j,i,marker='o',color=colorPicker(temperature,currentState[i,j]))
+   
+   figure, axes = plt.subplots()
+   data = axes.imshow(currentState, cmap=plt.get_cmap('hot'), interpolation='nearest', vmin=0, vmax=temperature)
+   figure.colorbar(data)
    plt.show()
+
+   # plt.title("Heat Diffusion")
+   # plt.show()
